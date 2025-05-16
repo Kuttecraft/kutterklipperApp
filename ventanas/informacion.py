@@ -34,15 +34,16 @@ class PantallaInformacion(tk.Frame):
             bg=COLOR_FONDO,
             justify='center'
         )
-
+    
         self.label.place(x=0, y=240, width=VENTANA_ANCHO, height=150)
-
-        # Añadir imagen del QR
+    
+        # Añadir imagen del QR usando Canvas
         qr_image = cargar_imagen(RUTA_IMAGEN_QR, 200, 200)
         if qr_image:
-            self.qr_label = tk.Label(self, image=qr_image)
-            self.qr_label.image = qr_image
-            self.qr_label.place(x=VENTANA_ANCHO//2 - 100, y=50)  # Centrado horizontalmente, 100px desde arriba
+            self.qr_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
+            self.qr_canvas.place(x=VENTANA_ANCHO//2 - 100, y=50, width=200, height=200)
+            self.qr_canvas.create_image(0, 0, anchor='nw', image=qr_image)
+            self.qr_canvas.image = qr_image
 
     def create_button(self):
         img_orig = cargar_imagen_original(RUTA_BOTON)
