@@ -40,7 +40,7 @@ class PantallaInformacion(tk.Frame):
         # Añadir imagen del QR
         qr_image = cargar_imagen(RUTA_IMAGEN_QR, 200, 200)
         if qr_image:
-            self.qr_label = tk.Label(self, image=qr_image, bg='black)
+            self.qr_label = tk.Label(self, image=qr_image)
             self.qr_label.image = qr_image
             self.qr_label.place(x=VENTANA_ANCHO//2 - 100, y=50)  # Centrado horizontalmente, 100px desde arriba
 
