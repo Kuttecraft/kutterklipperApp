@@ -1,0 +1,35 @@
+import tkinter as tk
+from ventanas.bienvenida import PantallaBienvenida
+from ventanas.informacion import PantallaInformacion
+from constantes import VENTANA_ANCHO, VENTANA_ALTO
+
+class KutterKlipperInterface:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.configure(bg='black')  # 👈 fondo negro base
+        self.root.title("KutterKlipper")
+        self.root.attributes('-fullscreen', True)
+        self.root.overrideredirect(True)
+        self.root.geometry(f"{VENTANA_ANCHO}x{VENTANA_ALTO}")
+
+        self.current_screen = None
+        self.mostrar_bienvenida()
+
+    def mostrar_bienvenida(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaBienvenida(
+            self.root,
+            continuar_callback=self.mostrar_informacion
+        )
+
+    def mostrar_informacion(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaInformacion(self.root)
+
+    def limpiar_pantalla(self):
+        if self.current_screen:
+            self.current_screen.destroy()
+            self.current_screen = None
+
+    def run(self):
+        self.root.mainloop()
