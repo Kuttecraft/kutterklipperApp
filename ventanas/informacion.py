@@ -57,7 +57,7 @@ class PantallaInformacion(tk.Frame):
             )
             self.button.place(
                 x=275,
-                y=387,
+                y=415,
                 width=self.button_image.width(),
                 height=self.button_image.height()
             )

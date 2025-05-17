@@ -58,7 +58,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
             )
             self.button.place(
                 x=442,
-                y=387,
+                y=415,
                 width=self.button_image.width(),
                 height=self.button_image.height()
             )
@@ -83,7 +83,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
             self.button_omitir.image = self.button_image_omitir  # Mantener referencia a la imagen
             self.button_omitir.place(
                 x=108,
-                y=387,
+                y=415,
                 width=self.button_image_omitir.width(),
                 height=self.button_image_omitir.height()
             )
