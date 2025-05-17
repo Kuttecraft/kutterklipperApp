@@ -28,7 +28,7 @@ class PantallaInformacion(tk.Frame):
             justify='center'
         )
     
-        self.label.place(x=0, y=240, width=VENTANA_ANCHO, height=150)
+        self.label.place(x=0, y=250, width=VENTANA_ANCHO, height=150)
     
         # Añadir imagen del QR usando Canvas
         qr_image = cargar_imagen(RUTA_IMAGEN_QR, 200, 200)
@@ -57,7 +57,7 @@ class PantallaInformacion(tk.Frame):
             )
             self.button.place(
                 x=275,
-                y=415,
+                y=410,
                 width=self.button_image.width(),
                 height=self.button_image.height()
             )

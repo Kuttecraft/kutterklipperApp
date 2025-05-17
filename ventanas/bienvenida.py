@@ -22,13 +22,13 @@ class PantallaBienvenida(tk.Frame):
     def create_text(self):
         self.label = tk.Label(
             self,
-            text="¡Te damos la bienvenida a KutterKlipper!",
+            text="¡Te damos la bienvenida a\nKutterKlipper!",
             font=FUENTE_TITULO,
             fg=COLOR_TEXTO,
             bg=COLOR_FONDO,
             justify='center'
         )
-        self.label.place(x=0, y=310, width=VENTANA_ANCHO, height=50)
+        self.label.place(x=0, y=290, width=VENTANA_ANCHO, height=100)
 
         # Añadir el logo
         Logo_Kuttercraft = cargar_imagen(RUTA_LOGO_KUTTERCRAFT, 200, 230)#268 x 308
@@ -57,7 +57,7 @@ class PantallaBienvenida(tk.Frame):
             )
             self.button.place(
                 x=275,
-                y=415,
+                y=410,
                 width=self.button_image.width(),
                 height=self.button_image.height()
             )

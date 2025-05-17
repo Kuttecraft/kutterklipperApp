@@ -32,7 +32,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO//2,  # Posición X centrada
-            330,  # Posición Y
+            350,  # Posición Y
             text="¿Te gustaría iniciar el asistente\nde configuración de máquinas?",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
@@ -58,7 +58,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
             )
             self.button.place(
                 x=442,
-                y=415,
+                y=410,
                 width=self.button_image.width(),
                 height=self.button_image.height()
             )
@@ -83,7 +83,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
             self.button_omitir.image = self.button_image_omitir  # Mantener referencia a la imagen
             self.button_omitir.place(
                 x=108,
-                y=415,
+                y=410,
                 width=self.button_image_omitir.width(),
                 height=self.button_image_omitir.height()
             )
