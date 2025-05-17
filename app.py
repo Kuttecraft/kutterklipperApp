@@ -1,6 +1,7 @@
 import tkinter as tk
 from ventanas.bienvenida import PantallaBienvenida
 from ventanas.informacion import PantallaInformacion
+from ventanas.confirmacion_entrar_asistente import PantallaConfirmacionEntrarAsistente
 from constantes import VENTANA_ANCHO, VENTANA_ALTO
 
 class KutterKlipperInterface:
@@ -24,7 +25,14 @@ class KutterKlipperInterface:
 
     def mostrar_informacion(self):
         self.limpiar_pantalla()
-        self.current_screen = PantallaInformacion(self.root)
+        self.current_screen = PantallaInformacion(
+            self.root,
+            continuar_callback=self.mostrar_confirmacion_entrar_asistente
+        )
+
+    def mostrar_confirmacion_entrar_asistente(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaConfirmacionEntrarAsistente(self.root)
 
     def limpiar_pantalla(self):
         if self.current_screen:

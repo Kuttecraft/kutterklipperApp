@@ -1,4 +1,4 @@
-# ventanas/informacion.py
+# ventanas/confirmacion_entrar_asistente.py
 import tkinter as tk
 from PIL import ImageTk
 from constantes import (
@@ -8,20 +8,20 @@ from constantes import (
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original
 
-class PantallaInformacion(tk.Frame):
-    def __init__(self, master, continuar_callback=None):
+class PantallaConfirmacionEntrarAsistente(tk.Frame):
+    def __init__(self, master):
         super().__init__(master, bg='black')
         self.pack(fill='both', expand=True)
-        self.continuar_callback = continuar_callback or (lambda: None)
 
         self.create_text()
-        self.create_button()
+        self.create_button_aceptar()
+        self.create_button_omitir()
         self.bind_events()
 
     def create_text(self):
         self.label = tk.Label(
             self,
-            text="Lo primero que le recomendamos es ver\nlos tutoriales disponibles en nuestra página web.\nPuede acceder escaneando el código QR.",
+            text="¿Desea entrar al asistente?",
             font=('Montserrat', 22, 'bold'),
             fg=COLOR_TEXTO,
             bg=COLOR_FONDO,
@@ -38,7 +38,7 @@ class PantallaInformacion(tk.Frame):
             self.qr_canvas.create_image(0, 0, anchor='nw', image=qr_image)
             self.qr_canvas.image = qr_image
 
-    def create_button(self):
+    def create_button_aceptar(self):
         img_orig = cargar_imagen_original(RUTA_BOTON)
         if img_orig:
             self.button_image = ImageTk.PhotoImage(img_orig)
@@ -53,13 +53,38 @@ class PantallaInformacion(tk.Frame):
                 compound='center',
                 borderwidth=0,
                 highlightthickness=0,
-                command=self.continuar_callback
+                command=self.master.quit
             )
             self.button.place(
-                x=275,
+                x=442,
                 y=387,
                 width=self.button_image.width(),
                 height=self.button_image.height()
+            )
+
+    def create_button_omitir(self):
+        img_orig = cargar_imagen_original(RUTA_BOTON)
+        if img_orig:
+            self.button_image_omitir = ImageTk.PhotoImage(img_orig)
+            self.button_omitir = tk.Button(
+                self,
+                image=self.button_image_omitir,
+                text="OMITIR",
+                font=('Montserrat', 16, 'bold'),
+                fg='white',
+                activeforeground='white',
+                activebackground='white',
+                compound='center',
+                borderwidth=0,
+                highlightthickness=0,
+                command=self.master.quit
+            )
+            self.button_omitir.image = self.button_image_omitir  # Mantener referencia a la imagen
+            self.button_omitir.place(
+                x=108,
+                y=387,
+                width=self.button_image_omitir.width(),
+                height=self.button_image_omitir.height()
             )
 
     def bind_events(self):

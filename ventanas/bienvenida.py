@@ -4,7 +4,7 @@ from PIL import ImageTk
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
     FUENTE_TITULO, COLOR_TEXTO, COLOR_FONDO,
-    RUTA_IMAGEN_FONDO, RUTA_BOTON
+    RUTA_IMAGEN_FONDO, RUTA_BOTON, RUTA_LOGO_KUTTERCRAFT
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original
 
@@ -13,19 +13,12 @@ class PantallaBienvenida(tk.Frame):
         super().__init__(master, bg='black')
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
-
-        self.load_background()
+        
         self.create_text()
         self.create_button()
         self.bind_events()
 
-    def load_background(self):
-        fondo = cargar_imagen(RUTA_IMAGEN_FONDO, VENTANA_ANCHO, VENTANA_ALTO)
-        if fondo:
-            self.bg_label = tk.Label(self, image=fondo, bg='black')
-            self.bg_label.image = fondo
-            self.bg_label.place(x=0, y=0, relwidth=1, relheight=1)
-
+    # Crea el texto de bienvenida
     def create_text(self):
         self.label = tk.Label(
             self,
@@ -36,6 +29,14 @@ class PantallaBienvenida(tk.Frame):
             justify='center'
         )
         self.label.place(x=0, y=310, width=VENTANA_ANCHO, height=50)
+
+        # Añadir el logo
+        Logo_Kuttercraft = cargar_imagen(RUTA_LOGO_KUTTERCRAFT, 200, 230)#268 x 308
+        if Logo_Kuttercraft:
+            self.qr_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
+            self.qr_canvas.place(x=VENTANA_ANCHO//2 - 100, y=50, width=200, height=230)
+            self.qr_canvas.create_image(0, 0, anchor='nw', image=Logo_Kuttercraft)
+            self.qr_canvas.image = Logo_Kuttercraft
 
     def create_button(self):
         img_orig = cargar_imagen_original(RUTA_BOTON)
