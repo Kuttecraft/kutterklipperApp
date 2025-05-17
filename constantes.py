@@ -13,4 +13,4 @@ COLOR_FONDO = 'black'
 RUTA_IMAGEN_FONDO = "./recursos/menu_inicio.png"
 RUTA_BOTON = "./recursos/boton.png"
 RUTA_IMAGEN_QR = "./recursos/qr_kutterklipper.png"
-RUTA_LOGO_KUTTERCRAFT = "./recursos/Logo_Kuttercraft.png"
+RUTA_LOGO_KUTTERCRAFT = "./recursos/Logo_kuttercraft.png"
