@@ -4,7 +4,7 @@ from PIL import ImageTk
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
     FUENTE_TITULO, COLOR_TEXTO, COLOR_FONDO,
-    RUTA_IMAGEN_FONDO, RUTA_BOTON, RUTA_IMAGEN_QR
+    RUTA_IMAGEN_FONDO, RUTA_BOTON, RUTA_IMAGEN_IMPRESORA_3D
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original
 
@@ -19,24 +19,25 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
         self.bind_events()
 
     def create_text(self):
-        self.label = tk.Label(
-            self,
-            text="¿Desea entrar al asistente?",
+        # Crear un Canvas que abarque toda la ventana
+        self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
+        self.main_canvas.pack(fill='both', expand=True)
+
+        # Añadir la imagen de la impresora 3D
+        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        if impresora_3d:
+            self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
+            self.main_canvas.image = impresora_3d
+
+        # Añadir el texto sobre la imagen
+        self.main_canvas.create_text(
+            VENTANA_ANCHO//2,  # Posición X centrada
+            330,  # Posición Y
+            text="¿Te gustaría iniciar el asistente\nde configuración de máquinas?",
             font=('Montserrat', 22, 'bold'),
-            fg=COLOR_TEXTO,
-            bg=COLOR_FONDO,
+            fill=COLOR_TEXTO,
             justify='center'
         )
-    
-        self.label.place(x=0, y=240, width=VENTANA_ANCHO, height=150)
-    
-        # Añadir imagen del QR usando Canvas
-        qr_image = cargar_imagen(RUTA_IMAGEN_QR, 200, 200)
-        if qr_image:
-            self.qr_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
-            self.qr_canvas.place(x=VENTANA_ANCHO//2 - 100, y=50, width=200, height=200)
-            self.qr_canvas.create_image(0, 0, anchor='nw', image=qr_image)
-            self.qr_canvas.image = qr_image
 
     def create_button_aceptar(self):
         img_orig = cargar_imagen_original(RUTA_BOTON)
