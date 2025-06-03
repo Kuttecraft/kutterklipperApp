@@ -19,6 +19,8 @@ Esta aplicación está diseñada para facilitar la conexión con una impresora 3
 2. Ejecuta la aplicación con:
 
    ```bash
+   git clone https://github.com/Kuttecraft/kutterklipperApp.git
+   cd kutterklipperApp
    python nombre_del_archivo.py
    ```
 
