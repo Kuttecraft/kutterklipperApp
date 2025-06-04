@@ -7,6 +7,8 @@ from ventanas.inserte_sd import PantallaInserteSD
 from ventanas.final import PantallaFinal
 from ventanas.skr import PantallaSkr
 from ventanas.extrusor import PantallaExtrusor
+from ventanas.varillas import PantallaVarillas
+from ventanas.motor import PantallaMotor
 from constantes import VENTANA_ANCHO, VENTANA_ALTO
 
 class KutterKlipperInterface:
@@ -71,6 +73,22 @@ class KutterKlipperInterface:
     def mostrar_extrusor(self):
         self.limpiar_pantalla()
         self.current_screen = PantallaExtrusor(
+            self.root,
+            respuestas=self.respuestas,
+            continuar_callback=self.mostrar_varillas
+        )
+
+    def mostrar_varillas(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaVarillas(
+            self.root,
+            respuestas=self.respuestas,
+            continuar_callback=self.mostrar_motor
+        )
+
+    def mostrar_motor(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaMotor(
             self.root,
             respuestas=self.respuestas,
             continuar_callback=self.mostrar_final

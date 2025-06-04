@@ -1,4 +1,4 @@
-# ventanas/extrusor.py
+# ventanas/motor.py
 import tkinter as tk
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
@@ -7,7 +7,7 @@ from constantes import (
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
-class PantallaExtrusor(tk.Frame):
+class PantallaMotor(tk.Frame):
     def __init__(self, master, respuestas=None, continuar_callback=None):
         super().__init__(master, bg='black')
         self.respuestas = respuestas
@@ -19,17 +19,17 @@ class PantallaExtrusor(tk.Frame):
         crear_boton(
             self, 
             RUTA_BOTON, 
-            "MK8", 
+            "Directo", 
             108, 410, 
-            command=lambda: self.seleccionar_opcion("EXT", "MK8")
+            command=lambda: self.seleccionar_opcion("motor", "sin")
         )
 
         crear_boton(
             self,
             RUTA_BOTON,
-            "BMG",
+            "Con Ficha",
             442, 410,
-            command=lambda: self.seleccionar_opcion("EXT", "BMG")
+            command=lambda: self.seleccionar_opcion("motor", "con")
         )
 
         self.bind_events()
@@ -52,7 +52,7 @@ class PantallaExtrusor(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="¿Que tipo de extrusor tiene tu impresora?",
+            text="¿Que tipo de motor tienes?",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'

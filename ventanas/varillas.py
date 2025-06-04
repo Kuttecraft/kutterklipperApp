@@ -1,4 +1,4 @@
-# ventanas/extrusor.py
+# ventanas/varillas.py
 import tkinter as tk
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
@@ -7,7 +7,7 @@ from constantes import (
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
-class PantallaExtrusor(tk.Frame):
+class PantallaVarillas(tk.Frame):
     def __init__(self, master, respuestas=None, continuar_callback=None):
         super().__init__(master, bg='black')
         self.respuestas = respuestas
@@ -19,17 +19,17 @@ class PantallaExtrusor(tk.Frame):
         crear_boton(
             self, 
             RUTA_BOTON, 
-            "MK8", 
+            "8mm", 
             108, 410, 
-            command=lambda: self.seleccionar_opcion("EXT", "MK8")
+            command=lambda: self.seleccionar_opcion("Varilla", "8mm")
         )
 
         crear_boton(
             self,
             RUTA_BOTON,
-            "BMG",
+            "4mm",
             442, 410,
-            command=lambda: self.seleccionar_opcion("EXT", "BMG")
+            command=lambda: self.seleccionar_opcion("Varilla", "4mm")
         )
 
         self.bind_events()
@@ -52,7 +52,7 @@ class PantallaExtrusor(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="¿Que tipo de extrusor tiene tu impresora?",
+            text="¿Que tipo de varillas tienes\n8mm: 2 líneas | 4mm: 4 líneas?",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
