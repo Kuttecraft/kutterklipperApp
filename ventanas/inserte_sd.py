@@ -3,6 +3,9 @@ import tkinter as tk
 from PIL import ImageTk
 import sys
 import io
+import os
+import shutil
+import subprocess
 from utils.sd_tools import proceso_sd_completo
 
 from constantes import (
@@ -35,6 +38,13 @@ class PantallaInserteSD(tk.Frame):
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
 
+        # Ruta del archivo a copiar
+        self.archivo_firmware = "/home/kutter/firmware.bin"  # Cambiar si es necesario
+
+        # Dispositivo y punto de montaje
+        self.sd_device = "/dev/mmcblk1p1"
+        self.sd_mount_point = "/media/sdcard"
+
         self.create_text()
         self.create_console_output()
         self.bind_events()
@@ -60,6 +70,19 @@ class PantallaInserteSD(tk.Frame):
             276, 410,
             command=self.continuar
         )
+
+    def montar_sd():
+        print("[INFO] Intentando montar la SD...")
+        try:
+            os.makedirs(sd_mount_point, exist_ok=True)
+            subprocess.run(["sudo", "mount", sd_device, sd_mount_point], check=True)
+            print("[OK] SD montada en", sd_mount_point)
+        except subprocess.CalledProcessError as e:
+            print(f"[ERROR] Fallo al montar la SD: {e}")
+            sys.exit(1)
+        except Exception as e:
+            print(f"[ERROR] Error inesperado al montar la SD: {e}")
+            sys.exit(1)
 
     def continuar(self):
         try:
@@ -148,3 +171,50 @@ class PantallaInserteSD(tk.Frame):
         
         self.destroy()
         self.master.quit()
+    
+
+
+
+    
+
+
+
+    def copiar_firmware():
+        destino = os.path.join(sd_mount_point, "firmware.bin")
+        try:
+            if not os.path.exists(archivo_firmware):
+                print(f"[ERROR] El archivo de firmware no existe: {archivo_firmware}")
+                sys.exit(1)
+
+            subprocess.run(["sudo", "cp", archivo_firmware, destino], check=True)
+            print(f"[OK] Archivo copiado a {destino}")
+        except PermissionError:
+            print("[ERROR] Permiso denegado al copiar el archivo.")
+            sys.exit(1)
+        except shutil.SameFileError:
+            print("[ERROR] El archivo de origen y destino son iguales.")
+            sys.exit(1)
+        except Exception as e:
+            print(f"[ERROR] Error inesperado al copiar el archivo: {e}")
+            sys.exit(1)
+
+    def desmontar_sd():
+        print("[INFO] Desmontando la SD...")
+        try:
+            subprocess.run(["sudo", "umount", sd_mount_point], check=True)
+            print("[OK] SD desmontada correctamente.")
+        except subprocess.CalledProcessError as e:
+            print(f"[ERROR] Fallo al desmontar la SD: {e}")
+        except Exception as e:
+            print(f"[ERROR] Error inesperado al desmontar la SD: {e}")
+
+    # Programa principal
+    try:
+        if not os.path.ismount(sd_mount_point):
+            montar_sd()
+        else:
+            print(f"[INFO] La SD ya está montada en {sd_mount_point}")
+
+        copiar_firmware()
+    finally:
+        desmontar_sd()

@@ -3,13 +3,14 @@ from ventanas.bienvenida import PantallaBienvenida
 from ventanas.informacion import PantallaInformacion
 from ventanas.confirmacion_entrar_asistente import PantallaConfirmacionEntrarAsistente
 from ventanas.electronica import PantallaElectronica
-from ventanas.inserte_sd import PantallaInserteSD
+#from ventanas.inserte_sd import PantallaInserteSD
 from ventanas.final import PantallaFinal
 from ventanas.skr import PantallaSkr
 from ventanas.extrusor import PantallaExtrusor
 from ventanas.varillas import PantallaVarillas
 from ventanas.motor import PantallaMotor
 from ventanas.usb import PantallaUSB
+from ventanas.inserte_sd2 import PantallaInserteSD2
 from constantes import VENTANA_ANCHO, VENTANA_ALTO
 
 class KutterKlipperInterface:
@@ -60,12 +61,12 @@ class KutterKlipperInterface:
         self.current_screen = PantallaSkr(
             self.root,
             respuestas=self.respuestas,
-            continuar_callback=self.mostrar_inserte_sd
+            continuar_callback=self.mostrar_inserte_sd2
         )
 
-    def mostrar_inserte_sd(self):
+    def mostrar_inserte_sd2(self):
         self.limpiar_pantalla()
-        self.current_screen = PantallaInserteSD(
+        self.current_screen = PantallaInserteSD2(
             self.root,
             respuestas=self.respuestas,
             continuar_callback=self.mostrar_usb
