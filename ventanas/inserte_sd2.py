@@ -129,11 +129,24 @@ class PantallaInserteSD2(tk.Frame):
         except subprocess.CalledProcessError as e:
             print(f"[ERROR] Fallo al montar la SD: {e}")
             self.texto_sd = self.create_text_sd_montada_error()
+            self.boton_sd = crear_boton(
+                self, 
+                RUTA_BOTON, 
+                "Continuar", 
+                276, 410,
+                command=lambda: self.montar_sd()
+            )
             
         except Exception as e:
             print(f"[ERROR] Error inesperado al montar la SD: {e}")
             self.texto_sd = self.create_text_sd_montada_error()
-            
+            self.boton_sd = crear_boton(
+                self, 
+                RUTA_BOTON, 
+                "Continuar", 
+                276, 410,
+                command=lambda: self.montar_sd()
+            )
 
 
 
