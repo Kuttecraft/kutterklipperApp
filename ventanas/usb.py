@@ -19,7 +19,7 @@ class PantallaUSB(tk.Frame):
 
         self.create_text()
 
-        crear_boton(
+        self.boton_usb = crear_boton(
             self, 
             RUTA_BOTON, 
             "Buscar Puerto USB", 
@@ -82,9 +82,18 @@ class PantallaUSB(tk.Frame):
             dispositivos = resultado.split('\n') if resultado else []
 
             if dispositivos:
+                self.boton_usb.destroy()
                 print("🔌 Dispositivo(s) detectado(s):")
                 for dispositivo in dispositivos:
                     print(f"- {os.path.join(ruta, dispositivo)}")
+
+                self.boton_usb = crear_boton(
+                    self, 
+                    RUTA_BOTON, 
+                    "Siguiente", 
+                    276, 410,
+                    command=lambda: self.seleccionar_opcion("USB", dispositivo)
+                )
             else:
                 print("⚠️ No se encontraron dispositivos USB en:", ruta)
 
