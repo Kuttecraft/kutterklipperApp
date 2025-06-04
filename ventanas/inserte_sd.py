@@ -44,10 +44,15 @@ class PantallaInserteSD(tk.Frame):
         sys.stdout = TextRedirector(self.console_text)
         sys.stderr = TextRedirector(self.console_text)
 
-        print("Esperando confirmación de tarjeta SD insertada.")
+        print(
+            "Inserte una tarjeta SD vacía en el KutterKlipper.\n"
+            "Esta tarjeta se usará para grabar el archivo de actualización\n"
+            "\"firmware.bin\" para poder grabarlo después en la impresora.\n"
+            "Una vez insertada, presione el botón 'Continuar' en la pantalla."
+            )
 
         # Crear el botón después de que todo esté inicializado
-        crear_boton(
+        self.boton_sd_info = crear_boton(
             self, 
             RUTA_BOTON, 
             "CONTINUAR", 
@@ -117,7 +122,6 @@ class PantallaInserteSD(tk.Frame):
         self.bind_all('<Escape>', self.limpiar_y_salir)
 
     def limpiar_redireccion(self):
-        # Restaurar la salida estándar
         if hasattr(self, 'original_stdout'):
             sys.stdout = self.original_stdout
             del self.original_stdout
@@ -138,10 +142,8 @@ class PantallaInserteSD(tk.Frame):
             del self.main_canvas
 
     def limpiar_y_salir(self, event=None):
-        # Restaurar la salida estándar
         sys.stdout = self.original_stdout
         sys.stderr = self.original_stderr
         
-        # Destruir la pantalla
         self.destroy()
         self.master.quit()
