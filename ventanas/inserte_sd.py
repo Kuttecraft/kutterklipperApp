@@ -3,6 +3,7 @@ import tkinter as tk
 from PIL import ImageTk
 import sys
 import io
+from utils.sd_tools import proceso_sd_completo
 
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
@@ -61,28 +62,28 @@ class PantallaInserteSD(tk.Frame):
         )
 
     def continuar(self):
-        # Primero restaurar la salida estándar
+        try:
+            # Ejecuta el proceso de SD
+            proceso_sd_completo()
+            print("[OK] Proceso completado con éxito.")
+        except subprocess.CalledProcessError as e:
+            print(f"[ERROR] Error al ejecutar comando del sistema: {e}")
+        except Exception as e:
+            print(f"[ERROR] Error general: {e}")
+        
+        # Luego restaurar salidas
         if hasattr(self, 'original_stdout'):
             sys.stdout = self.original_stdout
             del self.original_stdout
-        
         if hasattr(self, 'original_stderr'):
             sys.stderr = self.original_stderr
             del self.original_stderr
-        
-        # Luego destruir los widgets
-        if hasattr(self, 'console_text'):
-            self.console_text.destroy()
-            del self.console_text
-        
-        if hasattr(self, 'main_canvas'):
-            self.main_canvas.destroy()
-            del self.main_canvas
-        
-        # Finalmente destruir la pantalla
+
+        # Destruir widgets
+        self.limpiar_widgets()
         self.destroy()
-        
-        # Continuar a la siguiente pantalla
+
+        # Continuar
         self.continuar_callback()
 
     def create_text(self):
