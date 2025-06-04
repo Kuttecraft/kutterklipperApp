@@ -51,6 +51,26 @@ class PantallaUSB(tk.Frame):
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
+        )
+
+    def create_text_no_hay_usb(self):
+        # Crear un Canvas que abarque toda la ventana
+        self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
+        self.main_canvas.pack(fill='both', expand=True)
+
+        # Añadir la imagen de la impresora 3D
+        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        if impresora_3d:
+            self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
+            self.main_canvas.image = impresora_3d
+
+        # Añadir el texto sobre la imagen
+        self.main_canvas.create_text(
+            VENTANA_ANCHO // 2, 350,
+            text="❌ No se pudo acceder al directorio.\n¿Está conectado el dispositivo USB?",
+            font=('Montserrat', 22, 'bold'),
+            fill=COLOR_TEXTO,
+            justify='center'
         ) 
 
     def detectar_puerto_usb(self):
@@ -69,6 +89,8 @@ class PantallaUSB(tk.Frame):
                 print("⚠️ No se encontraron dispositivos USB en:", ruta)
 
         except subprocess.CalledProcessError:
+            self.create_text.destroy()
+            self.create_text_no_hay_usb()
             print("❌ No se pudo acceder al directorio. ¿Está conectado el dispositivo USB?")
         except FileNotFoundError:
             print("❌ El sistema no tiene el comando 'ls' disponible (muy raro en sistemas Linux).")
