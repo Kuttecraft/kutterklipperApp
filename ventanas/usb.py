@@ -92,7 +92,7 @@ class PantallaUSB(tk.Frame):
                     RUTA_BOTON, 
                     "Siguiente", 
                     276, 410,
-                    command=lambda: self.seleccionar_opcion("USB", dispositivo)
+                    command=lambda: self.seleccionar_opcion("USB", {os.path.join(ruta, dispositivo)})
                 )
             else:
                 print("⚠️ No se encontraron dispositivos USB en:", ruta)
