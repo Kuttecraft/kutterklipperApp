@@ -77,8 +77,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="Se detecto y monto la SD\n"
-            "Se procedera a copiar el archivo \"firmware.bin\""
+            text="Se detecto y monto la SD\nSe procedera a copiar el archivo \"firmware.bin\""
             font=('Montserrat', 18, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
