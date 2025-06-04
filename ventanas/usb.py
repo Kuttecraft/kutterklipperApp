@@ -24,7 +24,7 @@ class PantallaUSB(tk.Frame):
             RUTA_BOTON, 
             "Buscar Puerto USB", 
             276, 410,
-            command=lambda: self.detectar_puerto_usb # self.seleccionar_opcion("skr", "usb")
+            command=lambda: self.detectar_puerto_usb() # self.seleccionar_opcion("skr", "usb")
         )
 
         self.bind_events()
