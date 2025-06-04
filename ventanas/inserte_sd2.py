@@ -160,7 +160,7 @@ class PantallaInserteSD2(tk.Frame):
 
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
-            VENTANA_ANCHO // 2, 250,
+            VENTANA_ANCHO // 2, 350,
             text="La tarjeta SD se expulso correctamente\nProceda a insertar la tarjeta SD en la electronica\nPara su instalacion en la impresora 3D",
             font=('Montserrat', 18, 'bold'),
             fill=COLOR_TEXTO,
