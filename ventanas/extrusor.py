@@ -1,6 +1,5 @@
-# ventanas/final.py
+# ventanas/extrusor.py
 import tkinter as tk
-from PIL import ImageTk
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
     FUENTE_TITULO, COLOR_TEXTO, COLOR_FONDO,
@@ -8,7 +7,7 @@ from constantes import (
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
-class PantallaFinal(tk.Frame):
+class PantallaExtrusor(tk.Frame):
     def __init__(self, master, respuestas=None, continuar_callback=None):
         super().__init__(master, bg='black')
         self.respuestas = respuestas
@@ -16,18 +15,28 @@ class PantallaFinal(tk.Frame):
         self.continuar_callback = continuar_callback or (lambda: None)
 
         self.create_text()
-        self.imprimir_respuestas()
+
         crear_boton(
             self, 
             RUTA_BOTON, 
-            "Salir", 
-            276, 410,
-            command=self.master.quit
+            "MK8", 
+            108, 410, 
+            command=lambda: self.seleccionar_opcion("EXT", "MK8")
         )
+
+        crear_boton(
+            self, 
+            RUTA_BOTON, 
+            "BMG", 
+            442, 410, 
+            command=lambda: self.seleccionar_opcion("EXT", "BMG")
+        )
+
         self.bind_events()
 
-    def imprimir_respuestas(self):
-        print(self.respuestas)
+    def seleccionar_opcion(self, clave, valor):
+        self.respuestas[clave] = valor
+        self.continuar_callback()
 
     def create_text(self):
         # Crear un Canvas que abarque toda la ventana
@@ -43,11 +52,11 @@ class PantallaFinal(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="¿Que modelo de SKR tienes?\nPuede revisar la serigrafía.",
+            text="¿Que tipo de extrusor tiene tu impresora?",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
-        ) 
+        )
 
     def bind_events(self):
         self.bind_all('<Escape>', lambda e: self.master.quit())

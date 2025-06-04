@@ -44,8 +44,6 @@ class PantallaSkr(tk.Frame):
 
     def seleccionar_opcion(self, clave, valor):
         self.respuestas[clave] = valor
-        print(f"{clave}: {valor}")
-        print(self.respuestas)
         self.continuar_callback()
 
     def create_text(self):
@@ -62,11 +60,11 @@ class PantallaSkr(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="¿Que modelo de SKR tienes?",
+            text="¿Que modelo de SKR tienes?\nPuede revisar la serigrafía.",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
-        )
+        ) 
 
     def bind_events(self):
         self.bind_all('<Escape>', lambda e: self.master.quit())

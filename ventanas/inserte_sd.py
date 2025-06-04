@@ -9,7 +9,7 @@ from constantes import (
     FUENTE_TITULO, COLOR_TEXTO, COLOR_FONDO,
     RUTA_IMAGEN_FONDO, RUTA_BOTON, RUTA_IMAGEN_IMPRESORA_3D
 )
-from utils.imagenes import cargar_imagen, cargar_imagen_original
+from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
 
 class TextRedirector(io.StringIO):
@@ -28,22 +28,57 @@ class TextRedirector(io.StringIO):
 
 
 class PantallaInserteSD(tk.Frame):
-    def __init__(self, master, continuar_callback=None):
+    def __init__(self, master, respuestas, continuar_callback=None):
         super().__init__(master, bg='black')
+        self.respuestas = respuestas
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
 
         self.create_text()
-        self.create_button_aceptar()
-        self.create_button_omitir()
         self.create_console_output()
         self.bind_events()
 
         # Redirigir stdout y stderr a la consola gráfica
+        self.original_stdout = sys.stdout
+        self.original_stderr = sys.stderr
         sys.stdout = TextRedirector(self.console_text)
         sys.stderr = TextRedirector(self.console_text)
 
         print("Esperando confirmación de tarjeta SD insertada.")
+
+        # Crear el botón después de que todo esté inicializado
+        crear_boton(
+            self, 
+            RUTA_BOTON, 
+            "CONTINUAR", 
+            276, 410,
+            command=self.continuar
+        )
+
+    def continuar(self):
+        # Primero restaurar la salida estándar
+        if hasattr(self, 'original_stdout'):
+            sys.stdout = self.original_stdout
+            del self.original_stdout
+        
+        if hasattr(self, 'original_stderr'):
+            sys.stderr = self.original_stderr
+            del self.original_stderr
+        
+        # Luego destruir los widgets
+        if hasattr(self, 'console_text'):
+            self.console_text.destroy()
+            del self.console_text
+        
+        if hasattr(self, 'main_canvas'):
+            self.main_canvas.destroy()
+            del self.main_canvas
+        
+        # Finalmente destruir la pantalla
+        self.destroy()
+        
+        # Continuar a la siguiente pantalla
+        self.continuar_callback()
 
     def create_text(self):
         # Crear un Canvas que abarque toda la ventana
@@ -66,55 +101,6 @@ class PantallaInserteSD(tk.Frame):
             justify='center'
         )
 
-    def create_button_aceptar(self):
-        img_orig = cargar_imagen_original(RUTA_BOTON)
-        if img_orig:
-            self.button_image = ImageTk.PhotoImage(img_orig)
-            self.button = tk.Button(
-                self,
-                image=self.button_image,
-                text="CONTINUAR",
-                font=('Montserrat', 16, 'bold'),
-                fg='white',
-                activeforeground='white',
-                activebackground='white',
-                compound='center',
-                borderwidth=0,
-                highlightthickness=0,
-                command=self.continuar_callback
-            )
-            self.button.place(
-                x=442,
-                y=410,
-                width=self.button_image.width(),
-                height=self.button_image.height()
-            )
-
-    def create_button_omitir(self):
-        img_orig = cargar_imagen_original(RUTA_BOTON)
-        if img_orig:
-            self.button_image_omitir = ImageTk.PhotoImage(img_orig)
-            self.button_omitir = tk.Button(
-                self,
-                image=self.button_image_omitir,
-                text="OMITIR",
-                font=('Montserrat', 16, 'bold'),
-                fg='white',
-                activeforeground='white',
-                activebackground='white',
-                compound='center',
-                borderwidth=0,
-                highlightthickness=0,
-                command=self.master.quit
-            )
-            self.button_omitir.image = self.button_image_omitir  # Mantener referencia a la imagen
-            self.button_omitir.place(
-                x=108,
-                y=410,
-                width=self.button_image_omitir.width(),
-                height=self.button_image_omitir.height()
-            )
-
     def create_console_output(self):
         self.console_text = tk.Text(
             self,
@@ -122,10 +108,40 @@ class PantallaInserteSD(tk.Frame):
             fg='white',
             font=('Courier', 11),
             width=100,   # 800 / 8 = 100 caracteres aprox
-            height=12    # 200 / 16 px = 12 líneas aprox
+            height=6    # 200 / 16 px = 12 líneas aprox
         )
-        self.console_text.place(x=0, y=VENTANA_ALTO - 300, width=800, height=200)
+        self.console_text.place(x=100, y=VENTANA_ALTO - 200, width=600, height=100)
         self.console_text.config(state='disabled')
-
+        
     def bind_events(self):
-        self.bind_all('<Escape>', lambda e: self.master.quit())
+        self.bind_all('<Escape>', self.limpiar_y_salir)
+
+    def limpiar_redireccion(self):
+        # Restaurar la salida estándar
+        if hasattr(self, 'original_stdout'):
+            sys.stdout = self.original_stdout
+            del self.original_stdout
+        
+        if hasattr(self, 'original_stderr'):
+            sys.stderr = self.original_stderr
+            del self.original_stderr
+
+    def limpiar_widgets(self):
+        # Destruir el widget de texto
+        if hasattr(self, 'console_text'):
+            self.console_text.destroy()
+            del self.console_text
+        
+        # Destruir el canvas
+        if hasattr(self, 'main_canvas'):
+            self.main_canvas.destroy()
+            del self.main_canvas
+
+    def limpiar_y_salir(self, event=None):
+        # Restaurar la salida estándar
+        sys.stdout = self.original_stdout
+        sys.stderr = self.original_stderr
+        
+        # Destruir la pantalla
+        self.destroy()
+        self.master.quit()

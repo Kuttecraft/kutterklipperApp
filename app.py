@@ -6,6 +6,7 @@ from ventanas.electronica import PantallaElectronica
 from ventanas.inserte_sd import PantallaInserteSD
 from ventanas.final import PantallaFinal
 from ventanas.skr import PantallaSkr
+from ventanas.extrusor import PantallaExtrusor
 from constantes import VENTANA_ANCHO, VENTANA_ALTO
 
 class KutterKlipperInterface:
@@ -63,12 +64,29 @@ class KutterKlipperInterface:
         self.limpiar_pantalla()
         self.current_screen = PantallaInserteSD(
             self.root,
+            respuestas=self.respuestas,
+            continuar_callback=self.mostrar_extrusor
+        )
+        
+    def mostrar_extrusor(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaExtrusor(
+            self.root,
+            respuestas=self.respuestas,
             continuar_callback=self.mostrar_final
         )
         
     def mostrar_final(self):
         self.limpiar_pantalla()
-        self.current_screen = PantallaFinal(self.root)
+        self.current_screen = PantallaFinal(
+            self.root,
+            respuestas=self.respuestas,
+            continuar_callback=self.quit
+        )
+
+
+    def quit(self):
+        self.root.quit()
 
 
     def limpiar_pantalla(self):
