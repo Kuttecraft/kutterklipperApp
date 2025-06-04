@@ -99,8 +99,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="No se detecto la SD\n"
-            "Reinserte la SD y presione continuar"
+            text="No se detecto la SD\nReinserte la SD y presione continuar"
             font=('Montserrat', 18, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
