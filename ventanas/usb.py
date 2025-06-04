@@ -17,6 +17,9 @@ class PantallaUSB(tk.Frame):
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
 
+        self.main_canvas = None
+        self.boton_usb = None
+
         self.int_texto = self.create_text()
 
         self.boton_usb = crear_boton(
@@ -24,27 +27,39 @@ class PantallaUSB(tk.Frame):
             RUTA_BOTON, 
             "Buscar Puerto USB", 
             276, 410,
-            command=lambda: self.detectar_puerto_usb() # self.seleccionar_opcion("skr", "usb")
+            command=lambda: self.detectar_puerto_usb()
         )
 
         self.bind_events()
+
+    def limpiar_canvas(self):
+        try:
+            self.main_canvas.destroy()
+        except AttributeError:
+            pass
+        self.main_canvas = None
+
+    def limpiar_boton_usb(self):
+        try:
+            self.boton_usb.destroy()
+        except AttributeError:
+            pass
+        self.boton_usb = None
 
     def seleccionar_opcion(self, clave, valor):
         self.respuestas[clave] = valor
         self.continuar_callback()
 
     def create_text(self):
-        # Crear un Canvas que abarque toda la ventana
+        self.limpiar_canvas()
         self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
         self.main_canvas.pack(fill='both', expand=True)
 
-        # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
-        # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
             text="Se buscará el puerto USB de la impresora.\nDebe ser la única máquina conectada.",
@@ -55,17 +70,15 @@ class PantallaUSB(tk.Frame):
         return self.main_canvas
 
     def create_text_no_hay_usb(self):
-        # Crear un Canvas que abarque toda la ventana
+        self.limpiar_canvas()
         self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
         self.main_canvas.pack(fill='both', expand=True)
 
-        # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
-        # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
             text="No se pudo acceder al directorio.\n¿Está conectado el dispositivo USB?",
@@ -75,17 +88,15 @@ class PantallaUSB(tk.Frame):
         )
 
     def create_text_hay_usb(self):
-        # Crear un Canvas que abarque toda la ventana
+        self.limpiar_canvas()
         self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
         self.main_canvas.pack(fill='both', expand=True)
 
-        # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
-        # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
             text="¡Perfecto!\nSe ha detectado USB",
@@ -98,23 +109,20 @@ class PantallaUSB(tk.Frame):
         ruta = "/dev/serial/by-id/"
     
         try:
-            # Ejecuta el comando y captura la salida
             resultado = subprocess.check_output(['ls', ruta], stderr=subprocess.STDOUT).decode().strip()
             dispositivos = resultado.split('\n') if resultado else []
 
             if dispositivos:
-                # Mostrar los dispositivos detectados
                 print("🔌 Dispositivo(s) detectado(s):")
                 for dispositivo in dispositivos:
                     print(f"- {os.path.join(ruta, dispositivo)}")
                 
-                # Destruir los widgets anteriores
-                self.boton_usb.destroy()
+                self.limpiar_boton_usb()
                 self.int_texto.destroy()
-                
-                # Crear los widgets nuevos
+
                 self.create_text_hay_usb()
-                crear_boton(
+
+                self.boton_usb = crear_boton(
                     self, 
                     RUTA_BOTON, 
                     "Siguiente", 
@@ -125,22 +133,11 @@ class PantallaUSB(tk.Frame):
                 print("⚠️ No se encontraron dispositivos USB en:", ruta)
 
         except subprocess.CalledProcessError:
-            try:
-                self.int_texto.destroy()
-            except AttributeError:
-                pass
-            try:
-                self.text_no_hay_usb_guardado.destroy()
-            except AttributeError:
-                pass
-            try:
-                self.boton_usb_guardado.destroy()
-            except AttributeError:
-                pass
+            self.int_texto.destroy()
+            self.limpiar_boton_usb()
+            self.create_text_no_hay_usb()
 
-            self.text_no_hay_usb_guardado = self.create_text_no_hay_usb()
-
-            self.boton_usb_guardado = crear_boton(
+            self.boton_usb = crear_boton(
                 self, 
                 RUTA_BOTON, 
                 "Buscar Puerto USB", 
@@ -148,6 +145,7 @@ class PantallaUSB(tk.Frame):
                 command=lambda: self.detectar_puerto_usb()
             )
             print("No se pudo acceder al directorio. ¿Está conectado el dispositivo USB?")
+
         except FileNotFoundError:
             print("❌ El sistema no tiene el comando 'ls' disponible (muy raro en sistemas Linux).")
 
