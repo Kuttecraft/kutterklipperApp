@@ -88,7 +88,7 @@ class PantallaUSB(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="¡Perfecto! 🖨️🔌\nSe ha detectado USB",
+            text="¡Perfecto!\nSe ha detectado USB",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
@@ -127,7 +127,14 @@ class PantallaUSB(tk.Frame):
         except subprocess.CalledProcessError:
             self.int_texto.destroy()
             self.create_text_no_hay_usb()
-            print("❌ No se pudo acceder al directorio. ¿Está conectado el dispositivo USB?")
+            crear_boton(
+                self, 
+                RUTA_BOTON, 
+                "Buscar Puerto USB", 
+                276, 410,
+                command=lambda: self.detectar_puerto_usb()
+            )
+            print("No se pudo acceder al directorio. ¿Está conectado el dispositivo USB?")
         except FileNotFoundError:
             print("❌ El sistema no tiene el comando 'ls' disponible (muy raro en sistemas Linux).")
 
