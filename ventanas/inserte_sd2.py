@@ -110,13 +110,22 @@ class PantallaInserteSD2(tk.Frame):
 
     def montar_sd(self):
         print("[INFO] Intentando montar la SD...")
-        # Destruir los widgets
         self.texto_sd.destroy()
-        
 
         try:
             os.makedirs(self.sd_mount_point, exist_ok=True)
-            subprocess.run(["sudo", "mount", self.sd_device, self.sd_mount_point], check=True)
+
+            # Verificar si la SD ya está montada
+            resultado = subprocess.run(
+                ["mountpoint", "-q", self.sd_mount_point]
+            )
+
+            if resultado.returncode != 0:
+                # Solo intentar montar si no está montada
+                subprocess.run(["sudo", "mount", self.sd_device, self.sd_mount_point], check=True)
+            else:
+                print("[INFO] La SD ya estaba montada.")
+
             self.boton_sd.destroy()
             self.texto_sd = self.create_text_sd_montada()
             self.boton_sd = crear_boton(
@@ -126,6 +135,7 @@ class PantallaInserteSD2(tk.Frame):
                 276, 410,
                 command=lambda: self.seleccionar_opcion("Tipo", "8_Bits")
             )
+
         except subprocess.CalledProcessError as e:
             print(f"[ERROR] Fallo al montar la SD: {e}")
             self.texto_sd = self.create_text_sd_montada_error()
@@ -136,7 +146,7 @@ class PantallaInserteSD2(tk.Frame):
                 276, 410,
                 command=lambda: self.montar_sd()
             )
-            
+
         except Exception as e:
             print(f"[ERROR] Error inesperado al montar la SD: {e}")
             self.texto_sd = self.create_text_sd_montada_error()
