@@ -68,7 +68,7 @@ class PantallaUSB(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="❌ No se pudo acceder al directorio.\n¿Está conectado el dispositivo USB?",
+            text="No se pudo acceder al directorio.\n¿Está conectado el dispositivo USB?",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
@@ -125,9 +125,22 @@ class PantallaUSB(tk.Frame):
                 print("⚠️ No se encontraron dispositivos USB en:", ruta)
 
         except subprocess.CalledProcessError:
-            self.int_texto.destroy()
-            self.create_text_no_hay_usb()
-            crear_boton(
+            try:
+                self.int_texto.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.text_no_hay_usb_guardado.destroy()
+            except AttributeError:
+                pass
+            try:
+                self.boton_usb_guardado.destroy()
+            except AttributeError:
+                pass
+
+            self.text_no_hay_usb_guardado = self.create_text_no_hay_usb()
+
+            self.boton_usb_guardado = crear_boton(
                 self, 
                 RUTA_BOTON, 
                 "Buscar Puerto USB", 
