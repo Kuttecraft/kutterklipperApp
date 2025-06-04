@@ -17,7 +17,7 @@ class PantallaUSB(tk.Frame):
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
 
-        self.create_text()
+        self.int_texto = self.create_text()
 
         self.boton_usb = crear_boton(
             self, 
@@ -52,6 +52,7 @@ class PantallaUSB(tk.Frame):
             fill=COLOR_TEXTO,
             justify='center'
         )
+        return self.main_canvas
 
     def create_text_no_hay_usb(self):
         # Crear un Canvas que abarque toda la ventana
@@ -71,6 +72,26 @@ class PantallaUSB(tk.Frame):
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
+        )
+
+    def create_text_hay_usb(self):
+        # Crear un Canvas que abarque toda la ventana
+        self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
+        self.main_canvas.pack(fill='both', expand=True)
+
+        # Añadir la imagen de la impresora 3D
+        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        if impresora_3d:
+            self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
+            self.main_canvas.image = impresora_3d
+
+        # Añadir el texto sobre la imagen
+        self.main_canvas.create_text(
+            VENTANA_ANCHO // 2, 350,
+            text="¡Perfecto! 🖨️🔌\nSe ha detectado USB",
+            font=('Montserrat', 22, 'bold'),
+            fill=COLOR_TEXTO,
+            justify='center'
         ) 
 
     def detectar_puerto_usb(self):
@@ -82,23 +103,29 @@ class PantallaUSB(tk.Frame):
             dispositivos = resultado.split('\n') if resultado else []
 
             if dispositivos:
-                self.boton_usb.destroy()
+                # Mostrar los dispositivos detectados
                 print("🔌 Dispositivo(s) detectado(s):")
                 for dispositivo in dispositivos:
                     print(f"- {os.path.join(ruta, dispositivo)}")
-
-                self.boton_usb = crear_boton(
+                
+                # Destruir los widgets anteriores
+                self.boton_usb.destroy()
+                self.int_texto.destroy()
+                
+                # Crear los widgets nuevos
+                self.create_text_hay_usb()
+                crear_boton(
                     self, 
                     RUTA_BOTON, 
                     "Siguiente", 
                     276, 410,
-                    command=lambda: self.seleccionar_opcion("USB", {os.path.join(ruta, dispositivo)})
+                    command=lambda: self.seleccionar_opcion("USB", os.path.join(ruta, dispositivo))
                 )
             else:
                 print("⚠️ No se encontraron dispositivos USB en:", ruta)
 
         except subprocess.CalledProcessError:
-            self.create_text.destroy()
+            self.int_texto.destroy()
             self.create_text_no_hay_usb()
             print("❌ No se pudo acceder al directorio. ¿Está conectado el dispositivo USB?")
         except FileNotFoundError:
