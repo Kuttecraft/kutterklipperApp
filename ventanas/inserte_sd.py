@@ -1,6 +1,9 @@
-# ventanas/confirmacion_entrar_asistente.py
+# ventanas/inserte_sd.py
 import tkinter as tk
 from PIL import ImageTk
+import sys
+import io
+
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
     FUENTE_TITULO, COLOR_TEXTO, COLOR_FONDO,
@@ -8,7 +11,23 @@ from constantes import (
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original
 
-class PantallaConfirmacionEntrarAsistente(tk.Frame):
+
+class TextRedirector(io.StringIO):
+    def __init__(self, text_widget):
+        super().__init__()
+        self.text_widget = text_widget
+
+    def write(self, message):
+        self.text_widget.config(state='normal')
+        self.text_widget.insert('end', message)
+        self.text_widget.see('end')  # Auto-scroll
+        self.text_widget.config(state='disabled')
+
+    def flush(self):
+        pass
+
+
+class PantallaInserteSD(tk.Frame):
     def __init__(self, master, continuar_callback=None):
         super().__init__(master, bg='black')
         self.pack(fill='both', expand=True)
@@ -17,7 +36,14 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
         self.create_text()
         self.create_button_aceptar()
         self.create_button_omitir()
+        self.create_console_output()
         self.bind_events()
+
+        # Redirigir stdout y stderr a la consola gráfica
+        sys.stdout = TextRedirector(self.console_text)
+        sys.stderr = TextRedirector(self.console_text)
+
+        print("Esperando confirmación de tarjeta SD insertada.")
 
     def create_text(self):
         # Crear un Canvas que abarque toda la ventana
@@ -32,9 +58,9 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
 
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
-            VENTANA_ANCHO//2,  # Posición X centrada
+            VENTANA_ANCHO // 2,  # Posición X centrada
             350,  # Posición Y
-            text="¿Te gustaría iniciar el asistente\nde configuración de máquinas?",
+            text="Inserte el SD Card de la impresora",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
@@ -88,6 +114,18 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
                 width=self.button_image_omitir.width(),
                 height=self.button_image_omitir.height()
             )
+
+    def create_console_output(self):
+        self.console_text = tk.Text(
+            self,
+            bg='black',
+            fg='white',
+            font=('Courier', 11),
+            width=100,   # 800 / 8 = 100 caracteres aprox
+            height=12    # 200 / 16 px = 12 líneas aprox
+        )
+        self.console_text.place(x=0, y=VENTANA_ALTO - 300, width=800, height=200)
+        self.console_text.config(state='disabled')
 
     def bind_events(self):
         self.bind_all('<Escape>', lambda e: self.master.quit())

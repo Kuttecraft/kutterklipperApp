@@ -1,4 +1,4 @@
-# ventanas/confirmacion_entrar_asistente.py
+# ventanas/final.py
 import tkinter as tk
 from PIL import ImageTk
 from constantes import (
@@ -8,7 +8,7 @@ from constantes import (
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original
 
-class PantallaConfirmacionEntrarAsistente(tk.Frame):
+class PantallaFinal(tk.Frame):
     def __init__(self, master, continuar_callback=None):
         super().__init__(master, bg='black')
         self.pack(fill='both', expand=True)
@@ -34,7 +34,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
         self.main_canvas.create_text(
             VENTANA_ANCHO//2,  # Posición X centrada
             350,  # Posición Y
-            text="¿Te gustaría iniciar el asistente\nde configuración de máquinas?",
+            text="listo su impresora esta configurada",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
@@ -47,7 +47,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
             self.button = tk.Button(
                 self,
                 image=self.button_image,
-                text="CONTINUAR",
+                text="ACEPTAR",
                 font=('Montserrat', 16, 'bold'),
                 fg='white',
                 activeforeground='white',
@@ -71,7 +71,7 @@ class PantallaConfirmacionEntrarAsistente(tk.Frame):
             self.button_omitir = tk.Button(
                 self,
                 image=self.button_image_omitir,
-                text="OMITIR",
+                text="8 bits",
                 font=('Montserrat', 16, 'bold'),
                 fg='white',
                 activeforeground='white',
