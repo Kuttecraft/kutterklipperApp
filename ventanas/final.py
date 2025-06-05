@@ -1,6 +1,7 @@
 # ventanas/final.py
 import tkinter as tk
 import re
+import subprocess
 from PIL import ImageTk
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
