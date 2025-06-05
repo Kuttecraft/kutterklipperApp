@@ -122,8 +122,17 @@ class PantallaFinal(tk.Frame):
 
         self.nuevo_contenido = re.sub(r"<(.*?)>", self.reemplazar, self.contenido)
 
+        try:
+            subprocess.run(["sudo", "rm", self.ruta_nuevo_archivo], check=True)
+        except subprocess.CalledProcessError as e:
+            print(f"[ERROR] Fallo al eliminar: {e}")
+        except Exception as e:
+            print(f"[ERROR] Error inesperado al eliminar: {e}")
+            
+
         with open(self.ruta_nuevo_archivo, "w", encoding="utf-8") as file:
             file.write(self.nuevo_contenido)
+            print("[INFO] Archivo creado correctamente", self.nuevo_contenido)
 
     def reemplazar(self, match):
         clave = match.group(1)
