@@ -149,7 +149,7 @@ class PantallaArduino(tk.Frame):
             self, text="Cargando firmware", font=('Montserrat', 20),
             fg=COLOR_TEXTO, bg=COLOR_FONDO
         )
-        
+
         self.loading_label.place(x=VENTANA_ANCHO // 2 - 100, y=350)
 
         self.dots = ""
@@ -180,10 +180,12 @@ class PantallaArduino(tk.Frame):
         self.loading_label.destroy()
 
         final_label = tk.Label(
-            self, text="✅ Firmware cargado con éxito",
+            self, text="Firmware cargado con éxito",
             font=('Montserrat', 20), fg=COLOR_TEXTO, bg=COLOR_FONDO
         )
         final_label.place(x=VENTANA_ANCHO // 2 - 180, y=350)
+
+        self.respuestas["Tipo"] = "8_Bits"
 
         crear_boton(
             self,
