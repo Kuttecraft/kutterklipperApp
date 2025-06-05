@@ -1,5 +1,6 @@
 # ventanas/final.py
 import tkinter as tk
+import time
 import re
 import subprocess
 from PIL import ImageTk
@@ -25,7 +26,7 @@ class PantallaFinal(tk.Frame):
             RUTA_BOTON, 
             "Salir", 
             276, 410,
-            command=self.master.quit
+            command=self.salir
         )
         self.bind_events()
 
@@ -178,3 +179,25 @@ class PantallaFinal(tk.Frame):
 
     def bind_events(self):
         self.bind_all('<Escape>', lambda e: self.master.quit())
+
+
+
+    def stop_klipper_services(self):
+        for i in range(1, 5):
+            service = f"klipper-{i}.service"
+            print(f"🛑 Deteniendo {service}...")
+            subprocess.run(["sudo", "systemctl", "stop", service])
+
+    def start_klipper_services(self):
+        for i in range(1, 5):
+            service = f"klipper-{i}.service"
+            print(f"✅ Iniciando {service}...")
+            subprocess.run(["sudo", "systemctl", "start", service])
+
+    def salir(self):
+        self.stop_klipper_services()
+        time.sleep(1)
+        self.start_klipper_services()
+        time.sleep(1)
+        self.master.quit()
+        
