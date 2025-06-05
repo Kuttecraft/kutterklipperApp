@@ -136,10 +136,20 @@ class PantallaArduino(tk.Frame):
         self.texto_arduino.destroy()
         self.boton_arduino.destroy()
 
+        self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
+        self.main_canvas.pack(fill='both', expand=True)
+
+        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        if impresora_3d:
+            self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
+            self.main_canvas.image = impresora_3d
+
+
         self.loading_label = tk.Label(
             self, text="Cargando firmware", font=('Montserrat', 20),
             fg=COLOR_TEXTO, bg=COLOR_FONDO
         )
+        
         self.loading_label.place(x=VENTANA_ANCHO // 2 - 100, y=350)
 
         self.dots = ""
