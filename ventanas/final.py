@@ -43,8 +43,8 @@ class PantallaFinal(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="¿Que modelo de SKR tienes?\nPuede revisar la serigrafía.",
-            font=('Montserrat', 22, 'bold'),
+            text="Perfecto, ya se creó un archivo printer.cfg\ncon los valores de la impresora.Ahora solo queda\nreiniciar el firmware para poder probar la máquina.",
+            font=('Montserrat', 18, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
         ) 

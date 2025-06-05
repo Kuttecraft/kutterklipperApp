@@ -62,8 +62,8 @@ class PantallaUSB(tk.Frame):
 
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="Se buscará el puerto USB de la impresora.\nDebe ser la única máquina conectada.",
-            font=('Montserrat', 22, 'bold'),
+            text="Se buscará el puerto USB de la impresora.\nDebe ser la única máquina conectada.\n¡Además, el firmware ya tiene que estar actualizado!",
+            font=('Montserrat', 18, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
         )
