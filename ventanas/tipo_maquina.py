@@ -1,6 +1,5 @@
-# ventanas/final.py
+# ventanas/tipo_maquina.py
 import tkinter as tk
-from PIL import ImageTk
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
     FUENTE_TITULO, COLOR_TEXTO, COLOR_FONDO,
@@ -8,32 +7,44 @@ from constantes import (
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
-class PantallaFinal(tk.Frame):
-    def __init__(self, master, respuestas=None, continuar_callback=None):
+class PantallaTipoMaquina(tk.Frame):
+    def __init__(self, master, respuestas, continuar_callback=None):
         super().__init__(master, bg='black')
         self.respuestas = respuestas
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
 
         self.create_text()
-        self.imprimir_respuestas()
+
         crear_boton(
             self, 
             RUTA_BOTON, 
-            "Salir", 
-            276, 410,
-            command=self.master.quit
+            "PK3", 
+            15, 410,
+            command=lambda: self.seleccionar_opcion("tipo_maquina", "pk3")
         )
+
+        crear_boton(
+            self, 
+            RUTA_BOTON, 
+            "PK3++", 
+            276, 410,
+            command=lambda: self.seleccionar_opcion("tipo_maquina", "pk3++")
+        )
+
+        crear_boton(
+            self, 
+            RUTA_BOTON, 
+            "PK3EXT", 
+            537, 410, 
+            command=lambda: self.seleccionar_opcion("tipo_maquina", "pk3ext")
+        )
+
         self.bind_events()
 
-        self.crear_archivo_printer_cfg()
-
-    def crear_archivo_printer_cfg(self):
-        archivo = open("/home/kutter/kutterklipperApp/firmware/SKR_1_4/firmware.bin", "rb")
-        archivo.close()
-
-    def imprimir_respuestas(self):
-        print(self.respuestas)
+    def seleccionar_opcion(self, clave, valor):
+        self.respuestas[clave] = valor
+        self.continuar_callback()
 
     def create_text(self):
         # Crear un Canvas que abarque toda la ventana
@@ -49,7 +60,7 @@ class PantallaFinal(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="Perfecto, ya se creó un archivo printer.cfg\ncon los valores de la impresora.Ahora solo queda\nreiniciar el firmware para poder probar la máquina.",
+            text="¿Que Tamaño de impresora tienes?\nPK3: X:210 Y:210 Z:210\nPK3++: X:210 Y:310 Z:210\nPK3EXT: X:210 Y:310 Z:410",
             font=('Montserrat', 18, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'

@@ -3,10 +3,10 @@ from ventanas.bienvenida import PantallaBienvenida
 from ventanas.informacion import PantallaInformacion
 from ventanas.confirmacion_entrar_asistente import PantallaConfirmacionEntrarAsistente
 from ventanas.electronica import PantallaElectronica
-#from ventanas.inserte_sd import PantallaInserteSD
 from ventanas.final import PantallaFinal
 from ventanas.skr import PantallaSkr
 from ventanas.extrusor import PantallaExtrusor
+from ventanas.tipo_maquina import PantallaTipoMaquina
 from ventanas.varillas import PantallaVarillas
 from ventanas.motor import PantallaMotor
 from ventanas.usb import PantallaUSB
@@ -75,6 +75,14 @@ class KutterKlipperInterface:
     def mostrar_usb(self):
         self.limpiar_pantalla()
         self.current_screen = PantallaUSB(
+            self.root,
+            respuestas=self.respuestas,
+            continuar_callback=self.mostrar_tipo_maquina
+        )
+
+    def mostrar_tipo_maquina(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaTipoMaquina(
             self.root,
             respuestas=self.respuestas,
             continuar_callback=self.mostrar_extrusor
