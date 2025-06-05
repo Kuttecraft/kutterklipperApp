@@ -143,12 +143,16 @@ class PantallaArduino(tk.Frame):
         self.loading_label.place(x=VENTANA_ANCHO // 2 - 100, y=350)
 
         self.dots = ""
+        self.animar = True  # ← bandera para controlar la animación
         self.animate_loading()
 
         thread = threading.Thread(target=self.proceso_firmware)
         thread.start()
 
     def animate_loading(self):
+        if not getattr(self, "animar", False):
+            return  # salir si ya no debe animar
+
         self.dots = "." if self.dots == "..." else self.dots + "."
         self.loading_label.config(text=f"Cargando firmware{self.dots}")
         self.after(500, self.animate_loading)
@@ -162,6 +166,7 @@ class PantallaArduino(tk.Frame):
         self.after(0, self.proceso_terminado)
 
     def proceso_terminado(self):
+        self.animar = False  # ← detener la animación antes de destruir el label
         self.loading_label.destroy()
 
         final_label = tk.Label(
@@ -170,7 +175,7 @@ class PantallaArduino(tk.Frame):
         )
         final_label.place(x=VENTANA_ANCHO // 2 - 180, y=350)
 
-        continuar_boton = crear_boton(
+        crear_boton(
             self,
             RUTA_BOTON,
             "Continuar",
