@@ -11,14 +11,15 @@ from constantes import (
 from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
 class PantallaFinal(tk.Frame):
-    def __init__(self, master, respuestas=None, continuar_callback=None):
+    def __init__(self, master, respuestas=None, printer_1_data="printer_1_data", continuar_callback=None):
         super().__init__(master, bg='black')
         self.respuestas = respuestas
+        self.printer_1_data = printer_1_data
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
 
         self.create_text()
-        self.imprimir_respuestas()
+
         crear_boton(
             self, 
             RUTA_BOTON, 
@@ -28,7 +29,7 @@ class PantallaFinal(tk.Frame):
         )
         self.bind_events()
 
-        self.ruta_nuevo_archivo = "/home/kutter/printer_1_data/config/printer_modificado.cfg"
+        self.ruta_nuevo_archivo = f"/home/kutter/{self.printer_1_data}/config/printer_modificado.cfg"
 
         #{'Tipo': '32_Bits', 'skr': 'skr1_4_turbo', 'USB': '/dev/serial/by-id/usb-Klipper_lpc1768_0D70000163102CAFA106FB5AC42000F5-if00', 'tipo_maquina': 'pk3++', 'EXT': 'BMG', 'Varilla': '4mm', 'motor': 'con'}
         
@@ -116,7 +117,7 @@ class PantallaFinal(tk.Frame):
 
         self.valores = {
             "usb_impresora": respuestas["USB"],
-            "carpeta_impresora": "printer_1_data",
+            "carpeta_impresora": self.printer_1_data,
             "direcion_motor_x": self.guiro_motor_x,
             "medida_eje_x": self.medida_eje_x,
             "direcion_motor_y": self.guiro_motor_y,
@@ -154,9 +155,6 @@ class PantallaFinal(tk.Frame):
         clave = match.group(1)
         return self.valores.get(clave, match.group(0))
         
-
-    def imprimir_respuestas(self):
-        print(self.respuestas)
 
     def create_text(self):
         # Crear un Canvas que abarque toda la ventana

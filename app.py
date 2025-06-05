@@ -15,7 +15,8 @@ from ventanas.inserte_sd2 import PantallaInserteSD2
 from constantes import VENTANA_ANCHO, VENTANA_ALTO
 
 class KutterKlipperInterface:
-    def __init__(self):
+    def __init__(self, printer_1_data="printer_1_data"):
+        self.printer_1_data = printer_1_data  # 👉 Guardás el valor recibido
         self.root = tk.Tk()
         self.root.configure(bg='black')  # 👈 fondo negro base
         self.root.title("KutterKlipper")
@@ -28,6 +29,7 @@ class KutterKlipperInterface:
         self.mostrar_bienvenida()
 
     def mostrar_bienvenida(self):
+        #print("printer_1_data", self.printer_1_data)
         self.limpiar_pantalla()
         self.current_screen = PantallaBienvenida(
             self.root,
@@ -127,6 +129,7 @@ class KutterKlipperInterface:
         self.current_screen = PantallaFinal(
             self.root,
             respuestas=self.respuestas,
+            printer_1_data=self.printer_1_data,
             continuar_callback=self.quit
         )
 

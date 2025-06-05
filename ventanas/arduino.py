@@ -220,35 +220,3 @@ class PantallaArduino(tk.Frame):
             print(f"✅ Iniciando {service}...")
             subprocess.run(["sudo", "systemctl", "start", service])
 
-
-'''
-
-
-# Paso 1: Encontrar el puerto del Arduino
-
-
-# Paso 2: Detener servicios Klipper
-
-
-# Paso 3: Flashear firmware
-
-
-# Programa principal
-if __name__ == "__main__":
-    print("🔍 Buscando Arduino...")
-    port = get_arduino_port()
-    if not port:
-        print("❌ No se encontró el Arduino.")
-        exit(1)
-
-    print(f"✅ Arduino detectado en: {port}")
-    stop_klipper_services()
-    time.sleep(1)  # Pausa breve
-
-    flash_firmware(port)
-    time.sleep(1)  # Esperar para asegurar escritura completa
-
-    start_klipper_services()
-    print("🎉 ¡Proceso completo!")
-
-'''
