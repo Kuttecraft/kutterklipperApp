@@ -24,7 +24,7 @@ class PantallaArduino(tk.Frame):
             RUTA_BOTON, 
             "Continuar", 
             276, 410,
-            command=lambda: self.menu_get_arduino_port()
+            command=self.menu_get_arduino_port
         )
 
         self.bind_events()
@@ -95,7 +95,6 @@ class PantallaArduino(tk.Frame):
             )
         else:
             print("✅ Arduino detectado en:", port)
-
 
     def get_arduino_port(self):
         try:
