@@ -30,7 +30,7 @@ class PantallaFinal(tk.Frame):
         )
         self.bind_events()
 
-        self.ruta_nuevo_archivo = f"/home/kutter/{self.printer_1_data}/config/printer_modificado.cfg"
+        self.ruta_nuevo_archivo = f"/home/kutter/{self.printer_1_data}/config/printer.cfg"
 
         #{'Tipo': '32_Bits', 'skr': 'skr1_4_turbo', 'USB': '/dev/serial/by-id/usb-Klipper_lpc1768_0D70000163102CAFA106FB5AC42000F5-if00', 'tipo_maquina': 'pk3++', 'EXT': 'BMG', 'Varilla': '4mm', 'motor': 'con'}
         
