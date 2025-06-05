@@ -33,7 +33,7 @@ class PantallaFinal(tk.Frame):
         #{'Tipo': '32_Bits', 'skr': 'skr1_4_turbo', 'USB': '/dev/serial/by-id/usb-Klipper_lpc1768_0D70000163102CAFA106FB5AC42000F5-if00', 'tipo_maquina': 'pk3++', 'EXT': 'BMG', 'Varilla': '4mm', 'motor': 'con'}
         
         if(respuestas["Tipo"] == "32_Bits"):
-            if(respuestas["skr"] == "skr2"):
+            if(respuestas["skr"] == "skr2_0"):
                 self.ruta_archivo = "/home/kutter/kutterklipperApp/config_printer/printer_SKR2.cfg"
             else:
                 self.ruta_archivo = "/home/kutter/kutterklipperApp/config_printer/printer_SKR1_4.cfg"
