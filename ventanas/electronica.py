@@ -8,27 +8,28 @@ from constantes import (
 from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
 class PantallaElectronica(tk.Frame):
-    def __init__(self, master, respuestas=None, continuar_callback=None):
+    def __init__(self, master, respuestas=None, continuar_32bits=None, continuar_8bits=None):
         super().__init__(master, bg='black')
-        self.respuestas = respuestas
+        self.respuestas = respuestas or {}
         self.pack(fill='both', expand=True)
-        self.continuar_callback = continuar_callback or (lambda: None)
+        self.continuar_32bits = continuar_32bits
+        self.continuar_8bits = continuar_8bits
 
         self.create_text()
 
         crear_boton(
-            self, 
-            RUTA_BOTON, 
-            "8 Bits (Arduino)", 
-            108, 410, 
+            self,
+            RUTA_BOTON,
+            "8 Bits (Arduino)",
+            108, 410,
             command=lambda: self.seleccionar_opcion("Tipo", "8_Bits")
         )
 
         crear_boton(
-            self, 
-            RUTA_BOTON, 
-            "32 Bits (SKR)", 
-            442, 410, 
+            self,
+            RUTA_BOTON,
+            "32 Bits (SKR)",
+            442, 410,
             command=lambda: self.seleccionar_opcion("Tipo", "32_Bits")
         )
 
@@ -36,7 +37,11 @@ class PantallaElectronica(tk.Frame):
 
     def seleccionar_opcion(self, clave, valor):
         self.respuestas[clave] = valor
-        self.continuar_callback()
+        if valor == "32_Bits" and self.continuar_32bits:
+            self.continuar_32bits()
+        elif valor == "8_Bits" and self.continuar_8bits:
+            self.continuar_8bits()
+
 
     def create_text(self):
         # Crear un Canvas que abarque toda la ventana

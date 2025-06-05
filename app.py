@@ -4,6 +4,7 @@ from ventanas.informacion import PantallaInformacion
 from ventanas.confirmacion_entrar_asistente import PantallaConfirmacionEntrarAsistente
 from ventanas.electronica import PantallaElectronica
 from ventanas.final import PantallaFinal
+from ventanas.arduino import PantallaArduino
 from ventanas.skr import PantallaSkr
 from ventanas.extrusor import PantallaExtrusor
 from ventanas.tipo_maquina import PantallaTipoMaquina
@@ -53,7 +54,16 @@ class KutterKlipperInterface:
         self.current_screen = PantallaElectronica(
             self.root,
             respuestas=self.respuestas,
-            continuar_callback=self.mostrar_skr
+            continuar_32bits=self.mostrar_skr,
+            continuar_8bits=self.mostrar_arduino  # Nuevo método que defines tú
+        )
+
+    def mostrar_arduino(self):
+        self.limpiar_pantalla()
+        self.current_screen = PantallaArduino(
+            self.root,
+            respuestas=self.respuestas,
+            continuar_callback=self.mostrar_usb
         )
 
     def mostrar_skr(self):
