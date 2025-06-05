@@ -141,7 +141,7 @@ class PantallaFinal(tk.Frame):
         self.nuevo_contenido = re.sub(r"<(.*?)>", self.reemplazar, self.contenido)
 
         try:
-            subprocess.run(["sudo", "rm", self.ruta_nuevo_archivo], check=True)
+            subprocess.run(["sudo", "rm", "/home/kutter/printer_1_data/config/printer_modificado.cfg"], check=True)
         except subprocess.CalledProcessError as e:
             print(f"[ERROR] Fallo al eliminar: {e}")
         except Exception as e:
