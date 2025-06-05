@@ -284,6 +284,7 @@ class PantallaInserteSD2(tk.Frame):
 
     def desmontar_sd(self):
         print("[INFO] Desmontando la SD...")
+        self.respuestas["Tipo"] = "32_Bits"
         try:
             subprocess.run(["sudo", "umount", self.sd_mount_point], check=True)
             print("[OK] SD desmontada correctamente.")
