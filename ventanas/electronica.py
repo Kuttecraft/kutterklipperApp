@@ -48,9 +48,9 @@ class PantallaElectronica(tk.Frame):
         self.main_canvas = tk.Canvas(self, bg='black', highlightthickness=0)
         self.main_canvas.pack(fill='both', expand=True)
 
-        impresora_3d = cargar_imagen("./recursos/Eletronica.png", 118, 273)
+        impresora_3d = cargar_imagen("./recursos/Eletronica.png", 564, 273)
         if impresora_3d:
-            self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(118, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
