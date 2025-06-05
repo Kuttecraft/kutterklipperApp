@@ -30,7 +30,7 @@ class PantallaFinal(tk.Frame):
         )
         self.bind_events()
 
-        self.ruta_nuevo_archivo = "/home/kutter/printer_1_data/config/printer_modificado.cfg"
+        self.ruta_nuevo_archivo = f"/home/kutter/{self.printer_1_data}/config/printer_modificado.cfg"
 
         #{'Tipo': '32_Bits', 'skr': 'skr1_4_turbo', 'USB': '/dev/serial/by-id/usb-Klipper_lpc1768_0D70000163102CAFA106FB5AC42000F5-if00', 'tipo_maquina': 'pk3++', 'EXT': 'BMG', 'Varilla': '4mm', 'motor': 'con'}
         
@@ -141,7 +141,7 @@ class PantallaFinal(tk.Frame):
         self.nuevo_contenido = re.sub(r"<(.*?)>", self.reemplazar, self.contenido)
 
         try:
-            subprocess.run(["sudo", "rm", "/home/kutter/printer_1_data/config/printer_modificado.cfg"], check=True)
+            subprocess.run(["sudo", "rm", self.ruta_nuevo_archivo], check=True)
         except subprocess.CalledProcessError as e:
             print(f"[ERROR] Fallo al eliminar: {e}")
         except Exception as e:
@@ -195,9 +195,9 @@ class PantallaFinal(tk.Frame):
             subprocess.run(["sudo", "systemctl", "start", service])
 
     def salir(self):
-        self.stop_klipper_services()
-        time.sleep(1)
-        self.start_klipper_services()
-        time.sleep(1)
+        #self.stop_klipper_services()
+        #time.sleep(1)
+        #self.start_klipper_services()
+        #time.sleep(1)
         self.master.quit()
         
