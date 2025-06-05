@@ -18,6 +18,8 @@ class PantallaInserteSD2(tk.Frame):
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
         
+        self.respuestas["Tipo"] = "32_Bits"
+
         if(respuestas["skr"] == "skr1_4"):
             self.archivo_firmware = "/home/kutter/kutterklipperApp/firmware/SKR_1_4/firmware.bin"
         elif(respuestas["skr"] == "skr1_4_turbo"):
@@ -284,7 +286,7 @@ class PantallaInserteSD2(tk.Frame):
 
     def desmontar_sd(self):
         print("[INFO] Desmontando la SD...")
-        self.respuestas["Tipo"] = "32_Bits"
+        
         try:
             subprocess.run(["sudo", "umount", self.sd_mount_point], check=True)
             print("[OK] SD desmontada correctamente.")
