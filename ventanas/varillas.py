@@ -52,7 +52,7 @@ class PantallaVarillas(tk.Frame):
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
             VENTANA_ANCHO // 2, 350,
-            text="¿Que tipo de varillas tienes\n8mm: 2 líneas | 4mm: 4 líneas?",
+            text="¿Que tipo de varillas tienes\n8mm: 4 líneas | 4mm: 2 líneas?",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
             justify='center'
