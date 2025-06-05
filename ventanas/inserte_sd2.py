@@ -7,7 +7,7 @@ import sys
 from constantes import (
     VENTANA_ANCHO, VENTANA_ALTO,
     FUENTE_TITULO, COLOR_TEXTO, COLOR_FONDO,
-    RUTA_IMAGEN_FONDO, RUTA_BOTON, RUTA_IMAGEN_IMPRESORA_3D
+    RUTA_IMAGEN_FONDO, RUTA_BOTON
 )
 from utils.imagenes import cargar_imagen, cargar_imagen_original, crear_boton
 
@@ -50,7 +50,7 @@ class PantallaInserteSD2(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        impresora_3d = cargar_imagen("./recursos/sd.png", 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
@@ -73,7 +73,7 @@ class PantallaInserteSD2(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        impresora_3d = cargar_imagen("./recursos/sd.png", 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
@@ -94,7 +94,7 @@ class PantallaInserteSD2(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        impresora_3d = cargar_imagen("./recursos/sd.png", 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
@@ -115,7 +115,7 @@ class PantallaInserteSD2(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        impresora_3d = cargar_imagen("./recursos/sd.png", 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
@@ -136,7 +136,7 @@ class PantallaInserteSD2(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        impresora_3d = cargar_imagen("./recursos/sd.png", 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
@@ -157,7 +157,7 @@ class PantallaInserteSD2(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        impresora_3d = cargar_imagen("./recursos/sd.png", 640, 329)
         if impresora_3d:
             self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d

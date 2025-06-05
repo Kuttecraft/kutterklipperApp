@@ -54,12 +54,12 @@ class PantallaSkr(tk.Frame):
         # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen("./recursos/SKRS.png", 773, 248)
         if impresora_3d:
-            self.main_canvas.create_image(13, 8, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(13, 12, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
         self.main_canvas.create_text(
-            VENTANA_ANCHO // 2, 350,
+            VENTANA_ANCHO // 2, 320,
             text="¿Que modelo de SKR tienes?\nPuede revisar la serigrafía.",
             font=('Montserrat', 22, 'bold'),
             fill=COLOR_TEXTO,
