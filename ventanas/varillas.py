@@ -21,7 +21,7 @@ class PantallaVarillas(tk.Frame):
             RUTA_BOTON, 
             "8mm", 
             108, 410, 
-            command=lambda: self.seleccionar_opcion("Varilla", "8mm")
+            command=lambda: self.seleccionar_opcion("Varilla", "8")
         )
 
         crear_boton(
@@ -29,7 +29,7 @@ class PantallaVarillas(tk.Frame):
             RUTA_BOTON,
             "4mm",
             442, 410,
-            command=lambda: self.seleccionar_opcion("Varilla", "4mm")
+            command=lambda: self.seleccionar_opcion("Varilla", "4")
         )
 
         self.bind_events()
