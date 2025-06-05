@@ -33,12 +33,27 @@ class PantallaFinal(tk.Frame):
         #{'Tipo': '32_Bits', 'skr': 'skr1_4_turbo', 'USB': '/dev/serial/by-id/usb-Klipper_lpc1768_0D70000163102CAFA106FB5AC42000F5-if00', 'tipo_maquina': 'pk3++', 'EXT': 'BMG', 'Varilla': '4mm', 'motor': 'con'}
         
         if(respuestas["Tipo"] == "32_Bits"):
-            self.ruta_archivo = "/home/kutter/kutterklipperApp/config_printer/printer_SKR1_4.cfg"
+            if(respuestas["skr"] == "skr2"):
+                self.ruta_archivo = "/home/kutter/kutterklipperApp/config_printer/printer_SKR2.cfg"
+            else:
+                self.ruta_archivo = "/home/kutter/kutterklipperApp/config_printer/printer_SKR1_4.cfg"
 
             if(respuestas["motor"] == "sin"):
                 self.guiro_motor_x = ""
                 self.guiro_motor_y = ""
                 self.guiro_motor_z = ""
+            else:
+                self.guiro_motor_x = "!"
+                self.guiro_motor_y = ""
+                self.guiro_motor_z = ""
+
+        if(respuestas["Tipo"] == "8_Bits"):
+            self.ruta_archivo = "/home/kutter/kutterklipperApp/config_printer/printer_ramps.cfg"
+
+            if(respuestas["motor"] == "sin"):
+                self.guiro_motor_x = ""
+                self.guiro_motor_y = "!"
+                self.guiro_motor_z = "!"
             else:
                 self.guiro_motor_x = "!"
                 self.guiro_motor_y = ""
@@ -133,7 +148,7 @@ class PantallaFinal(tk.Frame):
 
         with open(self.ruta_nuevo_archivo, "w", encoding="utf-8") as file:
             file.write(self.nuevo_contenido)
-            print("[INFO] Archivo creado correctamente", self.nuevo_contenido)
+            #print("[INFO] Archivo creado correctamente", self.nuevo_contenido)
 
     def reemplazar(self, match):
         clave = match.group(1)
