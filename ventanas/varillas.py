@@ -44,7 +44,7 @@ class PantallaVarillas(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen("./recursos/varillas.png", 736, 260)
+        impresora_3d = cargar_imagen("./recursos/varilla.png", 736, 260)
         if impresora_3d:
             self.main_canvas.create_image(32, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
