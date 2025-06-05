@@ -235,6 +235,7 @@ class PantallaInserteSD2(tk.Frame):
                 
             # Copiar el archivo
             subprocess.run(["sudo", "cp", self.archivo_firmware, destino], check=True)
+            print(f"[OK] Archivo seleccionado {self.archivo_firmware}")
             print(f"[OK] Archivo copiado a {destino}")
 
             
