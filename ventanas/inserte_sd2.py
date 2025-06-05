@@ -17,9 +17,13 @@ class PantallaInserteSD2(tk.Frame):
         self.respuestas = respuestas
         self.pack(fill='both', expand=True)
         self.continuar_callback = continuar_callback or (lambda: None)
-
-        # Ruta del archivo a copiar
-        self.archivo_firmware = "/home/kutter/firmware.bin"  # Cambiar si es necesario
+        
+        if(respuestas["skr"] == "skr1_4"):
+            self.archivo_firmware = "/home/kutter/kutterklipperApp/firmware/SKR_1_4/firmware.bin"
+        elif(respuestas["skr"] == "skr1_4_turbo"):
+            self.archivo_firmware = "/home/kutter/kutterklipperApp/firmware/SKR_1_4_Turbo/firmware.bin"
+        elif(respuestas["skr"] == "skr2_0"):
+            self.archivo_firmware = "/home/kutter/kutterklipperApp/firmware/SKR_2_0/firmware.bin"
 
         # Dispositivo y punto de montaje
         self.sd_device = "/dev/mmcblk1p1"
