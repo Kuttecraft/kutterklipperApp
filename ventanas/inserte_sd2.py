@@ -295,6 +295,32 @@ class PantallaInserteSD2(tk.Frame):
                 command=lambda: self.continuar_callback()
             )
         except subprocess.CalledProcessError as e:
-            print(f"[ERROR] Fallo al desmontar la SD: {e}")
+            subprocess.run(["sudo", "umount", self.sd_mount_point], check=True)
+            print("[OK] SD desmontada correctamente.")
+
+            self.texto_sd.destroy()
+            self.boton_sd.destroy()
+
+            self.texto_sd = self.create_text_sd_desmontada()
+            self.boton_sd = crear_boton(
+                self, 
+                RUTA_BOTON, 
+                "Continuar", 
+                276, 410,
+                command=lambda: self.continuar_callback()
+            )
         except Exception as e:
-            print(f"[ERROR] Error inesperado al desmontar la SD: {e}")
+            subprocess.run(["sudo", "umount", self.sd_mount_point], check=True)
+            print("[OK] SD desmontada correctamente.")
+
+            self.texto_sd.destroy()
+            self.boton_sd.destroy()
+
+            self.texto_sd = self.create_text_sd_desmontada()
+            self.boton_sd = crear_boton(
+                self, 
+                RUTA_BOTON, 
+                "Continuar", 
+                276, 410,
+                command=lambda: self.continuar_callback()
+            )
