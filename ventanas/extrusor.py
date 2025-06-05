@@ -44,9 +44,9 @@ class PantallaExtrusor(tk.Frame):
         self.main_canvas.pack(fill='both', expand=True)
 
         # Añadir la imagen de la impresora 3D
-        impresora_3d = cargar_imagen(RUTA_IMAGEN_IMPRESORA_3D, 640, 329)
+        impresora_3d = cargar_imagen("./recursos/mk8_bmg.png", 667, 314)
         if impresora_3d:
-            self.main_canvas.create_image(80, 8, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(66, 8, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen

@@ -52,7 +52,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen("./recursos/sd.png", 170, 194)
         if impresora_3d:
-            self.main_canvas.create_image(315, 14, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(315, 58, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
@@ -75,7 +75,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen("./recursos/sd.png", 170, 194)
         if impresora_3d:
-            self.main_canvas.create_image(315, 14, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(315, 58, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
@@ -96,7 +96,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen("./recursos/sd.png", 170, 194)
         if impresora_3d:
-            self.main_canvas.create_image(315, 14, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(315, 58, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
@@ -117,7 +117,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen("./recursos/sd.png", 170, 194)
         if impresora_3d:
-            self.main_canvas.create_image(315, 14, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(315, 58, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
@@ -138,7 +138,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen("./recursos/sd.png", 170, 194)
         if impresora_3d:
-            self.main_canvas.create_image(315, 14, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(315, 58, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
@@ -159,7 +159,7 @@ class PantallaInserteSD2(tk.Frame):
         # Añadir la imagen de la impresora 3D
         impresora_3d = cargar_imagen("./recursos/sd.png", 170, 194)
         if impresora_3d:
-            self.main_canvas.create_image(315, 14, anchor='nw', image=impresora_3d)
+            self.main_canvas.create_image(315, 58, anchor='nw', image=impresora_3d)
             self.main_canvas.image = impresora_3d
 
         # Añadir el texto sobre la imagen
