@@ -60,7 +60,7 @@ class PantallaFinal(tk.Frame):
 
 
         if(respuestas["EXT"] == "BMG"):
-            self.valor_extruder = "microsteps: 16\ngear_ratio: 3:1\nrotation_distance: 23.132\nfull_steps_per_rotation: 200\nmax_extrude_cross_section: 50"
+            self.valor_extruder = "#BMG EXTRUDER\nmicrosteps: 16\ngear_ratio: 3:1\nrotation_distance: 23.132\nfull_steps_per_rotation: 200\nmax_extrude_cross_section: 50"
             self.offset_x = "54"
             self.offset_y = "-36"
 
