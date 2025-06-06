@@ -209,7 +209,7 @@ class PantallaArduino(tk.Frame):
             "-P", self.port,
             "-b", "115200",
             "-D",
-            "-U", "flash:w:/home/klipper/kutterklipperApp/firmware/ramps/firmware.hex"
+            "-U", "flash:w:/home/kutter/kutterklipperApp/firmware/Ramps1_4/firmware.hex"
         ]
         print("🚀 Flasheando firmware...")
         subprocess.run(cmd)
