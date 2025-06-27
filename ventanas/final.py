@@ -82,7 +82,7 @@ class PantallaFinal(tk.Frame):
             self.valor_extruder = "#BMG EXTRUDER\nmicrosteps: 16\ngear_ratio: 3:1\nrotation_distance: 23.132\nfull_steps_per_rotation: 200\nmax_extrude_cross_section: 50"
             self.offset_x = "54"
             self.offset_y = "-36"
-            self.retract_length = "0.8"
+            self.retract_length_ = "0.8"
 
             if(respuestas["tipo_maquina"] == "pk3"):
                 self.home_xy_position = "61,141"
@@ -102,7 +102,7 @@ class PantallaFinal(tk.Frame):
             self.valor_extruder = "microsteps: 16\nrotation_distance: 30"
             self.offset_x = "54"
             self.offset_y = "-36"
-            self.retract_length = "6"
+            self.retract_length_ = "6"
 
             if(respuestas["tipo_maquina"] == "pk3"):
                 self.home_xy_position = "61,141"
