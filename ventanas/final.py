@@ -155,6 +155,7 @@ class PantallaFinal(tk.Frame):
         with open(self.ruta_nuevo_archivo, "w", encoding="utf-8") as file:
             file.write(self.nuevo_contenido)
             #print("[INFO] Archivo creado correctamente", self.nuevo_contenido)
+            #solo una nota
 
     def reemplazar(self, match):
         clave = match.group(1)
