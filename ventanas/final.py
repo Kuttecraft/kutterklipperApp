@@ -32,7 +32,8 @@ class PantallaFinal(tk.Frame):
 
         self.ruta_nuevo_archivo = f"/home/kutter/{self.printer_1_data}/config/printer.cfg"
 
-        #{'Tipo': '32_Bits', 'skr': 'skr1_4_turbo', 'USB': '/dev/serial/by-id/usb-Klipper_lpc1768_0D70000163102CAFA106FB5AC42000F5-if00', 'tipo_maquina': 'pk3++', 'EXT': 'BMG', 'Varilla': '4mm', 'motor': 'con'}
+        #respuestas = {'Tipo': '32_Bits', 'skr': 'skr1_4_turbo', 'USB': '/dev/serial/by-id/usb-Klipper_lpc1768_0D70000163102CAFA106FB5AC42000F5-if00', 'tipo_maquina': 'pk3++', 'EXT': 'BMG', 'Varilla': '4mm', 'motor': 'con'}
+        #adelante se estable el valor de las cariables para el final guardarlas en el archivo real y teminar creando al printer.cfg
         
         if(respuestas["Tipo"] == "32_Bits"):
             if(respuestas["skr"] == "skr2_0"):
@@ -81,6 +82,7 @@ class PantallaFinal(tk.Frame):
             self.valor_extruder = "#BMG EXTRUDER\nmicrosteps: 16\ngear_ratio: 3:1\nrotation_distance: 23.132\nfull_steps_per_rotation: 200\nmax_extrude_cross_section: 50"
             self.offset_x = "54"
             self.offset_y = "-36"
+            self.retract_length = "0.8"
 
             if(respuestas["tipo_maquina"] == "pk3"):
                 self.home_xy_position = "61,141"
@@ -100,6 +102,7 @@ class PantallaFinal(tk.Frame):
             self.valor_extruder = "microsteps: 16\nrotation_distance: 30"
             self.offset_x = "54"
             self.offset_y = "-36"
+            self.retract_length = "6"
 
             if(respuestas["tipo_maquina"] == "pk3"):
                 self.home_xy_position = "61,141"
@@ -132,6 +135,7 @@ class PantallaFinal(tk.Frame):
             "home_xy_position": self.home_xy_position,
             "mesh_min": self.mesh_min,
             "mesh_max": self.mesh_max,
+            "retract_length": self.retract_length_,
             "sensor_de_filamento": ""
         }
 
